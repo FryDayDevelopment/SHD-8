@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="content">
+<h1>Active User Sessions</h1>
+</div>
+
+<table class="container log-table" id="log-table" style="width: 90%;">
+    <tr>
+        <th>User ID</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>IP</th>
+        <th>Location(s)</th>
+    </tr>
+{% for session in sessionData.sessions %}
+    <tr>
+        <td>{{ session.user_id }}</td>
+        <td>{{ session.email }}</td>
+        <td>{{ session.date }}</td>
+        <td>{{ session.ip }}</td>
+        <td>{{ session.room }}</td>
+    </tr>
+{% endfor %}    
+</table>
+<div class="section save-container"><p><button type="button" class="button is-info is-medium" id="btnRefresh" onclick="refresh()">Refresh</button></p></div>
+
+
+<script>
+    document.querySelector("#users-menu").classList.add("active");
+    var sessionData = {{ sessionData | safe }};
+    console.log(JSON.stringify(sessionData,null,2));
+    
+    function refresh() {
+      window.location.reload();
+    }
+</script>
+{% endblock %}
